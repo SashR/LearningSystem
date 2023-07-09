@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreign('career_id')->references('career_id')->on('careers');
             $table->foreign('subject_id')->references('subject_id')->on('subjects');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

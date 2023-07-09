@@ -12,8 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('topics', function (Blueprint $table) {
-            $table->id();
+            $table->id('topic_id');
+            $table->unsignedBigInteger('main_topic_id')->nullable();
+            $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('subject_id')->references('subject_id')->on('subjects');
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

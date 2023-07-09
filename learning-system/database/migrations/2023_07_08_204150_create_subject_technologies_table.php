@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreign('subject_id')->references('subject_id')->on('subjects');
             $table->foreign('technology_id')->references('technology_id')->on('technologies');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
