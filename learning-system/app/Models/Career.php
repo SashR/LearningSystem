@@ -20,4 +20,12 @@ class Career extends Model
     public function subjects(){
         return $this->hasMany(\App\Models\CareerSubject::class,'career_id','career_id');
     }
+
+    public function mainCareer(){
+        return $this->hasOne(\App\Models\Career::class,'career_id','main_career_id');
+    }
+
+    public function subCareers(){
+        return $this->hasMany(\App\Models\Career::class, 'main_career_id','career_id');
+    }
 }
