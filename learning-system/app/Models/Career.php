@@ -14,11 +14,12 @@ class Career extends Model
     use HasFactory;
 
     public function technologies(){
-        return $this->hasMany(\App\Models\Technology::class,'career_id','career_id');
+        return $this->belongsToMany(\App\Models\CareerTechnology::class, 'career_technologies');
     }
 
     public function subjects(){
-        return $this->hasMany(\App\Models\CareerSubject::class,'career_id','career_id');
+        return $this->belongsToMany(\App\Models\Subject::class,'career_subjects');
+        // return $this->hasMany(\App\Models\CareerSubject::class,'career_id','career_id');
     }
 
     public function mainCareer(){

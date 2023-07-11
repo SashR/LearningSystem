@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Collection;
 class CareerService {
     public function read() : Collection {
         return Career::
-        select(
-            'career_id', // Reference
-            'main_career_id',   // Fetch main name
-            ''
+        join('careers AS mc','mc.career_id','careers.main_career_id')
+        ->join('users AS u','u.id','careers.created_by')
+        ->select(
+            'careers.career_id',
+            'mc.name AS Main Career',
+            'u.name AS Created By',
+            'careers.name AS Title',
+            'careers.description AS Description',
+            'careers.created_at AS Created At'
         )
         ->get();
     }
@@ -24,8 +29,17 @@ class CareerService {
         ]);
     }
 
-    public function update(){
-        // Update a career
+    public function update(int $careerID, string $name, string $description) : void {
+        Career::where('career_id',$careerID)->update([
+            'name'              => $name,
+            'description'       => $description
+        ]);
+    }
+
+    public function changeMainCareer(int $careerID, int $mainCareerID) : void {
+        Career::where('career_id',$careerID)->update([
+            'main_career_id'    => $mainCareerID
+        ]);
     }
 }
 
