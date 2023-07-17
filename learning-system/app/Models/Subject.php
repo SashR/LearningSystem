@@ -11,7 +11,7 @@ class Subject extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public $primaryKey = 'subject_id';
+    protected $primaryKey = 'subject_id';
 
     public function careers(){
         return $this->belongsToMany(\App\Models\Subject::class,'career_subjects');
